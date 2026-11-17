@@ -268,6 +268,11 @@ function onYouTubeIframeAPIReady() {
 }
 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
+function scrollIntoView(element) {
+  const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  element.scrollIntoView({ behavior, block: "start" });
+}
+
 function createYouTubePlayer() {
   if (!window.YT?.Player) return;
   youtubeReady = true;
@@ -293,7 +298,7 @@ function createYouTubePlayer() {
 function openAdmin() {
   elements.adminPanel.classList.remove("hidden");
   elements.adminToggle.setAttribute("aria-expanded", "true");
-  elements.adminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollIntoView(elements.adminPanel);
 }
 
 function closeAdmin() {
@@ -544,7 +549,7 @@ elements.questionList.addEventListener("click", async (event) => {
   elements.saveQuestion.innerHTML = "儲存修改 <span>✓</span>";
   elements.cancelEdit.classList.remove("hidden");
   updateFormFields();
-  elements.questionForm.scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollIntoView(elements.questionForm);
 });
 
 document.querySelectorAll(".category-card").forEach((card) => card.addEventListener("click", () => openGame(card.dataset.category)));
@@ -555,7 +560,7 @@ elements.closeGame.addEventListener("click", () => {
 });
 elements.backToCategories.addEventListener("click", () => {
   elements.closeGame.click();
-  document.querySelector(".game-section").scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollIntoView(document.querySelector(".game-section"));
 });
 elements.emptyAdmin.addEventListener("click", () => {
   elements.closeGame.click();
