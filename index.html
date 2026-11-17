@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#11111b" />
+    <title>動漫宅會考｜動漫派對遊戲</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="動漫宅會考首頁">
+          <span class="brand-mark">動</span>
+          <span>動漫<span class="brand-accent">宅會考</span></span>
+        </a>
+        <div class="topbar-right">
+          <span class="live-pill"><span></span> PARTY MODE</span>
+          <button class="admin-toggle" id="admin-toggle" type="button" aria-expanded="false">
+            <span class="settings-icon">⚙</span><span class="admin-label">管理題庫</span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> ANIME QUIZ NIGHT</p>
+            <h1>動漫迷的<br /><span>終極猜謎</span>大會</h1>
+            <p class="hero-description">音樂、畫面、角色剪影——準備好考驗你的動漫魂了嗎？</p>
+            <div class="hero-meta">
+              <span class="meta-icon">✦</span><span>選個分類，開始你的二次元知識對決</span>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="art-orbit orbit-one"></div>
+            <div class="art-orbit orbit-two"></div>
+            <div class="art-spark spark-one">✦</div>
+            <div class="art-spark spark-two">✧</div>
+            <div class="art-card card-back"></div>
+            <div class="art-card card-front">
+              <div class="card-glow"></div>
+              <div class="hero-play">▶</div>
+              <div class="hero-equalizer"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="hero-card-tag">GUESS THE ANIME</div>
+              <div class="hero-card-number">01 / 03</div>
+            </div>
+            <div class="art-caption"><span class="caption-dot"></span> LET'S PLAY!</div>
+          </div>
+        </section>
+
+        <section class="game-section" aria-labelledby="categories-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow section-eyebrow">CHOOSE YOUR CHALLENGE</p>
+              <h2 id="categories-heading">選擇猜謎模式<span class="heading-dot">.</span></h2>
+            </div>
+            <div class="round-count"><span id="question-count">0</span> 道題目準備好了</div>
+          </div>
+          <div class="category-grid">
+            <button class="category-card music-card" data-category="music" type="button">
+              <span class="category-number">01</span>
+              <span class="category-icon music-icon"><span class="music-note">♫</span></span>
+              <span class="category-content">
+                <span class="category-title">聽歌猜動畫</span>
+                <span class="category-description">聽前奏，猜猜是哪部作品的主題曲</span>
+              </span>
+              <span class="category-footer"><span class="category-count" data-count="music">0 道題目</span><span class="arrow-circle">↗</span></span>
+            </button>
+            <button class="category-card image-card" data-category="image" type="button">
+              <span class="category-number">02</span>
+              <span class="category-icon image-icon"><span>▧</span></span>
+              <span class="category-content">
+                <span class="category-title">看圖猜動畫</span>
+                <span class="category-description">看一張圖片，考驗你的動漫資料庫</span>
+              </span>
+              <span class="category-footer"><span class="category-count" data-count="image">0 道題目</span><span class="arrow-circle">↗</span></span>
+            </button>
+            <button class="category-card silhouette-card" data-category="silhouette" type="button">
+              <span class="category-number">03</span>
+              <span class="category-icon silhouette-icon"><span>♟</span></span>
+              <span class="category-content">
+                <span class="category-title">角色剪影猜猜看</span>
+                <span class="category-description">從黑色剪影找出你熟悉的角色</span>
+              </span>
+              <span class="category-footer"><span class="category-count" data-count="silhouette">0 道題目</span><span class="arrow-circle">↗</span></span>
+            </button>
+          </div>
+        </section>
+
+        <section class="admin-panel hidden" id="admin-panel" aria-labelledby="admin-heading">
+          <div class="admin-heading">
+            <div>
+              <p class="eyebrow section-eyebrow">HOST CONTROL ROOM</p>
+              <h2 id="admin-heading">管理題庫<span class="heading-dot">.</span></h2>
+            </div>
+            <button class="icon-button" id="close-admin" type="button" aria-label="關閉管理題庫">✕</button>
+          </div>
+          <div class="admin-layout">
+            <form class="question-form" id="question-form">
+              <div class="form-topline">
+                <h3 id="form-title">新增題目</h3>
+                <span class="required-note">* 必填欄位</span>
+              </div>
+              <label class="field-label" for="category">題目類別 <span>*</span></label>
+              <select id="category" name="category" required>
+                <option value="music">♫　聽歌猜動畫</option>
+                <option value="image">▧　看圖猜動畫</option>
+                <option value="silhouette">♟　角色剪影猜猜看</option>
+              </select>
+
+              <div class="field-group" id="youtube-field">
+                <label class="field-label" for="youtube-url">YouTube 影片網址 <span>*</span></label>
+                <input id="youtube-url" name="youtubeUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+                <p class="field-hint">支援 youtube.com/watch、youtu.be 和 Shorts 連結</p>
+              </div>
+              <div class="field-group hidden" id="image-field">
+                <label class="field-label" for="question-image">題目圖片 <span>*</span></label>
+                <label class="upload-zone" for="question-image">
+                  <span class="upload-symbol">↑</span>
+                  <span class="upload-main">點擊選擇圖片或拖曳到這裡</span>
+                  <span class="upload-sub">JPG、PNG、WEBP，建議小於 5 MB</span>
+                  <img class="upload-preview hidden" id="image-preview" alt="題目圖片預覽" />
+                </label>
+                <input id="question-image" name="image" class="visually-hidden" type="file" accept="image/*" />
+              </div>
+              <div class="field-group hidden" id="silhouette-field">
+                <label class="field-label" for="silhouette-image">角色圖片 <span>*</span></label>
+                <label class="upload-zone" for="silhouette-image">
+                  <span class="upload-symbol">↑</span>
+                  <span class="upload-main">上傳角色圖片，自動產生黑色剪影</span>
+                  <span class="upload-sub">建議使用背景單純、角色清楚的圖片</span>
+                  <img class="upload-preview hidden" id="silhouette-preview" alt="剪影預覽" />
+                </label>
+                <input id="silhouette-image" name="silhouetteImage" class="visually-hidden" type="file" accept="image/*" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="answer">正確答案 <span>*</span></label>
+                <input id="answer" name="answer" type="text" placeholder="例如：進擊的巨人" required />
+              </div>
+              <div class="field-group" id="duration-field">
+                <label class="field-label" for="duration">播放秒數</label>
+                <div class="duration-control"><input id="duration" name="duration" type="number" min="1" max="60" value="8" /><span>秒後自動暫停（可手動暫停）</span></div>
+              </div>
+              <div class="form-actions">
+                <button class="primary-button" type="submit" id="save-question">新增題目 <span>＋</span></button>
+                <button class="text-button hidden" type="button" id="cancel-edit">取消編輯</button>
+              </div>
+              <p class="form-message hidden" id="form-message" role="status"></p>
+            </form>
+
+            <div class="question-bank">
+              <div class="bank-heading"><h3>題庫清單</h3><span class="bank-total" id="bank-total">0 題</span></div>
+              <div class="bank-tabs" role="tablist" aria-label="篩選題庫">
+                <button class="bank-tab active" data-filter="all" type="button">全部</button>
+                <button class="bank-tab" data-filter="music" type="button">音樂</button>
+                <button class="bank-tab" data-filter="image" type="button">圖片</button>
+                <button class="bank-tab" data-filter="silhouette" type="button">剪影</button>
+              </div>
+              <div class="question-list" id="question-list"></div>
+              <p class="storage-note">題庫儲存在專案的 questions.json，圖片會存入 img/ 資料夾。請使用同一台電腦啟動本機服務。</p>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer"><span>✦</span> 為每個熱愛動漫的靈魂而設計 <span class="footer-divider">·</span> 次元猜謎</footer>
+      </main>
+    </div>
+
+    <div class="game-overlay hidden" id="game-overlay" role="dialog" aria-modal="true" aria-labelledby="game-title">
+      <div class="game-modal">
+        <div class="game-modal-top">
+          <button class="back-button" id="back-to-categories" type="button">← <span>返回分類</span></button>
+          <div class="game-counter" id="game-counter">01 / 01</div>
+          <button class="icon-button close-game" id="close-game" type="button" aria-label="關閉遊戲">✕</button>
+        </div>
+        <div class="game-heading">
+          <span class="game-category-icon" id="game-category-icon">♫</span>
+          <div><p class="eyebrow section-eyebrow" id="game-eyebrow">AUDIO CHALLENGE</p><h2 id="game-title">聽歌猜動畫</h2></div>
+        </div>
+        <div class="game-stage" id="game-stage">
+          <div class="empty-round hidden" id="empty-round">
+            <div class="empty-icon">✦</div>
+            <h3>這個分類還沒有題目</h3>
+            <p>請管理者先到題庫新增題目，再回來開始遊戲。</p>
+            <button class="primary-button" id="empty-admin" type="button">前往管理題庫 <span>↗</span></button>
+          </div>
+          <div class="youtube-stage hidden" id="youtube-stage">
+            <div id="youtube-player"></div>
+            <div class="audio-art" id="audio-art">
+              <div class="audio-disc"><span>♫</span></div>
+              <div class="audio-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <p>LISTEN &amp; GUESS</p>
+            </div>
+          </div>
+          <div class="image-stage hidden" id="image-stage"><img id="game-image" alt="猜動畫題目圖片" /></div>
+          <div class="silhouette-stage hidden" id="silhouette-stage"><img id="game-silhouette" alt="角色剪影" /></div>
+          <div class="answer-reveal hidden" id="answer-reveal"><span>正確答案</span><strong id="answer-text"></strong></div>
+        </div>
+        <div class="game-controls" id="game-controls">
+          <div class="audio-controls hidden" id="audio-controls">
+            <button class="play-button" id="play-audio" type="button"><span>▶</span> 播放片段</button>
+            <button class="secondary-button" id="pause-audio" type="button" disabled><span>Ⅱ</span> 暫停搶答</button>
+            <div class="audio-timer"><span class="timer-dot"></span><span id="timer-label">準備播放</span></div>
+          </div>
+          <button class="primary-button reveal-button hidden" id="reveal-answer" type="button">揭曉答案 <span>✦</span></button>
+          <button class="primary-button next-button hidden" id="next-question" type="button">下一題 <span>→</span></button>
+        </div>
+        <div class="game-hint" id="game-hint"><span>✦</span> 答對了嗎？準備揭曉答案！</div>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+  </body>
+</html>
